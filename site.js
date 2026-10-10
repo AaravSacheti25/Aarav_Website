@@ -95,4 +95,25 @@
     }, { rootMargin: '0px 0px -8% 0px' });
     items.forEach(function (el) { io.observe(el); });
   }
+
+  // lightbox for certificates, letters and article pages
+  var zooms = document.querySelectorAll('[data-zoom]');
+  if (zooms.length) {
+    var lb = document.createElement('div');
+    lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Image viewer');
+    lb.innerHTML = '<img alt=""><button type="button" aria-label="Close">&times;</button>';
+    document.body.appendChild(lb);
+    var lbImg = lb.querySelector('img'), lbBtn = lb.querySelector('button'), opener = null;
+    function closeLb() { lb.classList.remove('open'); document.body.classList.remove('lb-open'); if (opener) opener.focus(); }
+    zooms.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault(); opener = a;
+        var im = a.querySelector('img');
+        lbImg.src = a.getAttribute('href'); lbImg.alt = im ? im.alt : '';
+        lb.classList.add('open'); document.body.classList.add('lb-open'); lbBtn.focus();
+      });
+    });
+    lb.addEventListener('click', function (e) { if (e.target !== lbImg) closeLb(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && lb.classList.contains('open')) closeLb(); });
+  }
 })();
