@@ -116,4 +116,40 @@
     lb.addEventListener('click', function (e) { if (e.target !== lbImg) closeLb(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && lb.classList.contains('open')) closeLb(); });
   }
+
+  // impact numbers count up once when they scroll into view; they show the real value until then
+  var counts = document.querySelectorAll('.counters .stat b');
+  if (counts.length && !reduce && 'IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        cio.unobserve(e.target);
+        var el = e.target, html = el.innerHTML;
+        var m = html.match(/^([^0-9]*)([0-9][0-9,]*\.?[0-9]*)(.*)$/);
+        if (!m) return;
+        var target = parseFloat(m[2].replace(/,/g, '')), dec = (m[2].split('.')[1] || '').length, comma = m[2].indexOf(',') > -1;
+        var t0 = null, dur = 1100;
+        function fmt(v) {
+          var s = v.toFixed(dec);
+          return comma ? Number(s).toLocaleString('en-IN', { minimumFractionDigits: dec, maximumFractionDigits: dec }) : s;
+        }
+        function step(t) {
+          if (t0 === null) t0 = t;
+          var p = Math.min((t - t0) / dur, 1), ease = 1 - Math.pow(1 - p, 3);
+          el.innerHTML = m[1] + fmt(target * ease) + m[3];
+          if (p < 1) requestAnimationFrame(step); else el.innerHTML = html;
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+    counts.forEach(function (el) { cio.observe(el); });
+  }
+
+  // copy email address
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(b.getAttribute('data-copy')).then(done, function () {});
+    });
+  });
 })();
