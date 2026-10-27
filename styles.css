@@ -607,3 +607,18 @@ body.lb-open{overflow:hidden}
 /* photos stay in place while the story scrolls */
 .media,.story .media{position:static;top:auto}
 .home-tag{margin-bottom:26px;font-size:13px;padding:7px 16px}
+
+/* awards: a wall of pinned certificates and trophies */
+.award-wall{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:36px 28px;max-width:1120px;margin:0 auto 88px}
+.award-wall figure{margin:0}
+.award-wall a{display:block;aspect-ratio:3/4;background:#fff;border:10px solid #fff;border-bottom-width:14px;border-radius:4px;box-shadow:0 1px 2px rgba(22,24,29,.08),0 16px 32px -18px rgba(22,24,29,.35);transform:rotate(-1.6deg);transition:transform .35s ease,box-shadow .35s ease}
+.award-wall figure:nth-child(even) a{transform:rotate(1.4deg)}
+.award-wall a:hover{transform:rotate(0) translateY(-4px)}
+.award-wall img{width:100%;height:100%;object-fit:contain}
+.award-wall figcaption{margin-top:18px;text-align:center}
+.award-wall figcaption b{display:block;font-family:var(--serif);font-weight:400;font-size:21px;line-height:1.15;color:var(--ink)}
+.award-wall figcaption span{display:block;margin-top:4px;font-size:14px;color:var(--muted)}
+@media (max-width:860px){.award-wall{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 20px}}
+.row-photo.collage{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;background:#fff}
+.row-photo.collage img{width:100%;height:100%;min-height:0;object-fit:cover;object-position:center 20%}
+@media (prefers-reduced-motion:reduce){.award-wall a{transition:none}}
