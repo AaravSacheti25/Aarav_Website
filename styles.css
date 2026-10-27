@@ -546,3 +546,35 @@ body.lb-open{overflow:hidden}
 .feat b{display:block;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.1}
 .feat small{display:block;margin-top:6px;font-size:14px;line-height:1.4;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.row-photo img,.feat a{transition:none}}
+
+/* ---------- more room: one image per row, single-column stories, wider spacing ---------- */
+.banner{padding-block:112px 100px}
+.bn-sub{margin-top:28px}
+.band{padding-block:128px}
+.band-head{margin-bottom:44px}
+@media (max-width:640px){.banner{padding-block:72px 64px}.band{padding-block:76px}}
+
+/* hub rows: show the photo when there is one, otherwise the logo or drawing */
+.row{grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:96px;align-items:center}
+.row-side:has(.row-photo)>.logo-box,.row-side>.row-photo~.row-photo{display:none}
+.row-body{max-width:600px}
+.row-org{font-size:15px;font-weight:400;color:var(--muted)}
+.row-intro{margin-top:24px;line-height:1.7}
+.row-list{gap:14px;margin-top:28px}
+.row-foot{margin-top:40px;padding-top:22px}
+@media (max-width:900px){.row{grid-template-columns:minmax(0,1fr);gap:36px}.row-side{grid-template-columns:minmax(0,1fr)}}
+
+/* detail pages: one wide photo, then the story in a single reading column */
+.story{display:block}
+.story .media{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:1040px;margin:0 auto 72px}
+.story .media>*{grid-column:1/-1}
+.story .media>figure~figure{grid-column:auto}
+.story .media:has(figure,.carousel,video)>.logo-box{display:none}
+.story .media>.logo-box{max-width:520px;width:100%;margin-inline:auto}
+.story .body{max-width:680px;margin:0 auto}
+.story .body p{line-height:1.75}
+.story .body p+p{margin-top:22px}
+.counters{gap:48px 40px}
+@media (max-width:640px){.story .media{grid-template-columns:minmax(0,1fr);margin-bottom:48px}.story .media>figure~figure{grid-column:1/-1}}
+.story .media>figure:has(>.frame.tall){justify-self:center;width:min(100%,520px)}
+.story .media>figure>.frame.tall img{object-fit:cover}
