@@ -603,3 +603,7 @@ body.lb-open{overflow:hidden}
 .banner h1{display:block;width:fit-content;margin-inline:auto}
 .story .media>figure:has(>.frame.art){justify-self:center;width:min(100%,640px)}
 .story .media .frame.art{aspect-ratio:16/9}
+
+/* photos stay in place while the story scrolls */
+.media,.story .media{position:static;top:auto}
+.home-tag{margin-bottom:26px;font-size:13px;padding:7px 16px}
