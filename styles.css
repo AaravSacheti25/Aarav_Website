@@ -578,3 +578,5 @@ body.lb-open{overflow:hidden}
 @media (max-width:640px){.story .media{grid-template-columns:minmax(0,1fr);margin-bottom:48px}.story .media>figure~figure{grid-column:1/-1}}
 .story .media>figure:has(>.frame.tall){justify-self:center;width:min(100%,520px)}
 .story .media>figure>.frame.tall img{object-fit:cover}
+.story .media:has(>figure:nth-child(2):last-child)>figure{grid-column:auto;width:100%}
+@media (max-width:640px){.story .media:has(>figure:nth-child(2):last-child)>figure{grid-column:1/-1}}
